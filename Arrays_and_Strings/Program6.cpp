@@ -27,13 +27,17 @@ int countCompression(string str){
             countConsecutive=0;
         }
     }
-
+    return compressedLength;
 }
 
 
-string compress(string str){
+int compress(string str){
     int finalLength = countCompression(str);
-    if(finalLength>=str.length()) return str;
+    if(finalLength>=str.length()){
+        cout<<str<<endl;
+        return 0;
+    }
+
 
     vector<string> compressed;
     int countConsecutive = 0;
@@ -52,9 +56,11 @@ string compress(string str){
             countConsecutive=0;
         }
     }
+
     for(int i=0; i< compressed.size(); i++){
         cout<<compressed[i];
     }
+    return 1;
 }
 
 
