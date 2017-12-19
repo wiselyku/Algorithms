@@ -119,10 +119,12 @@ int main(){
     addNode(number1,34);
     tail = tail->next;
     tail->next = collid_spot;
-    if(FindBeginnig(number1)==NULL){
+    struct Node *beginning_point = FindBeginnig(number1);
+    if(beginning_point==NULL){
         cout<<"No, collision"<<endl;
     }else{
-        cout<<"Yes, there is a cycle."<<endl;
+
+        cout<<"Yes, there is a cycle, and the loop beginning point is "<<beginning_point->data<<endl;
     }
 
 return 0;
