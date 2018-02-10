@@ -403,13 +403,19 @@ bool deleteNode(TreeNode **root, int value){
                             successorNode->parent = tempRoot->parent;
                             successorNode->rightchild = tempRoot->rightchild;
                             successorNode->leftchild = tempRoot->leftchild;
+                            tempRoot->rightchild->parent = successorNode;
+                            if(tempRoot->leftchild!=nullptr){
+                                tempRoot->leftchild->parent = successorNode;
+                            }
                         }else{
                             tempRoot->parent->leftchild = successorNode;
                             successorNode->parent = tempRoot->parent;
                             successorNode->rightchild = tempRoot->rightchild;
                             successorNode->leftchild = tempRoot->leftchild;
                             tempRoot->rightchild->parent = successorNode;
-                            tempRoot->leftchild->parent = successorNode;
+                            if(tempRoot->leftchild!=nullptr){
+                                tempRoot->leftchild->parent = successorNode;
+                            }
                         }
 
                     }
