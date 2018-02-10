@@ -134,8 +134,14 @@ bool deleteNode(TreeNode **root, int value){
                 if(tempRoot->parent!=nullptr){
                     if(tempRoot == tempRoot->parent->rightchild){
                         tempRoot->parent->rightchild = tempRoot->leftchild;
+                        if(tempRoot->leftchild!=nullptr){
+                            tempRoot->leftchild->parent = tempRoot->parent;
+                        }
                     }else{
                         tempRoot->parent->leftchild = tempRoot->leftchild;
+                        if(tempRoot->leftchild!=nullptr){
+                            tempRoot->leftchild->parent = tempRoot->parent;
+                        }
                     }
                 }else{
                     // 要刪除的點是root
@@ -154,6 +160,9 @@ bool deleteNode(TreeNode **root, int value){
                     // 如果要刪除的點又剛好是root
                     if(tempRoot==(*root)){
                          successorNode->leftchild = (*root)->leftchild;
+                         if((*root)->leftchild!=nullptr){
+                            (*root)->leftchild->parent = successorNode;
+                         }
                         (*root) = successorNode;
                         (*root)->parent = nullptr;
                     }else{
@@ -186,6 +195,10 @@ bool deleteNode(TreeNode **root, int value){
                     if(tempRoot==(*root)){
                          successorNode->rightchild = tempRoot->rightchild;
                          successorNode->leftchild = tempRoot->leftchild;
+                         tempRoot->rightchild->parent = successorNode;
+                         if(tempRoot->leftchild!=nullptr){
+                            tempRoot->leftchild->parent = successorNode;
+                         }
                          (*root) = successorNode;
                          (*root)->parent = nullptr;
                     }else{
