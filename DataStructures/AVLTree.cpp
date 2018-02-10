@@ -324,7 +324,7 @@ bool deleteNode(TreeNode **root, int value){
             tempRoot = tempRoot->rightchild;
         }else if(tempRoot->value == value){
             // 找到要刪除的點
-            TreeNode *target;
+            TreeNode *target = nullptr;
             TreeNode *successorNode = successor(tempRoot);
             if(successorNode==nullptr){
                     // 處理case 1， 要刪除的點沒有右子樹，所以直接左子樹往上
@@ -332,10 +332,16 @@ bool deleteNode(TreeNode **root, int value){
                     if(tempRoot == tempRoot->parent->rightchild){
                         tempRoot->parent->rightchild = tempRoot->leftchild;
                         tempRoot->parent->Rheight = tempRoot->parent->Rheight -1;
+                        if(tempRoot->leftchild!=nullptr){
+                            tempRoot->leftchild->parent = tempRoot->parent;
+                        }
                         target = tempRoot->parent;
                     }else{
                         tempRoot->parent->leftchild = tempRoot->leftchild;
                         tempRoot->parent->Lheight = tempRoot->parent->Lheight -1;
+                        if(tempRoot->leftchild!=nullptr){
+                            tempRoot->leftchild->parent = tempRoot->parent;
+                        }
                         target = tempRoot->parent;
                     }
                 }else{
@@ -356,6 +362,9 @@ bool deleteNode(TreeNode **root, int value){
                     if(tempRoot==(*root)){
                         successorNode->leftchild = (*root)->leftchild;
                         successorNode->Lheight = (*root)->Lheight;
+                        if((*root)->leftchild!=nullptr){
+                            (*root)->leftchild->parent = successorNode;
+                         }
                         (*root) = successorNode;
                         (*root)->parent = nullptr;
                          target = (*root);
@@ -394,6 +403,10 @@ bool deleteNode(TreeNode **root, int value){
 
                          successorNode->rightchild = tempRoot->rightchild;
                          successorNode->leftchild = tempRoot->leftchild;
+                         tempRoot->rightchild->parent = successorNode;
+                         if(tempRoot->leftchild!=nullptr){
+                            tempRoot->leftchild->parent = successorNode;
+                         }
                          (*root) = successorNode;
                          (*root)->parent = nullptr;
 
