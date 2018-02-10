@@ -153,6 +153,7 @@ bool deleteNode(TreeNode **root, int value){
 
                     // 如果要刪除的點又剛好是root
                     if(tempRoot==(*root)){
+                         successorNode->leftchild = (*root)->leftchild;
                         (*root) = successorNode;
                         (*root)->parent = nullptr;
                     }else{
@@ -160,17 +161,23 @@ bool deleteNode(TreeNode **root, int value){
                             tempRoot->parent->rightchild = successorNode;
                             successorNode->parent = tempRoot->parent;
                             successorNode->leftchild = tempRoot->leftchild;
-                            tempRoot->leftchild->parent = successorNode;
+                            if(tempRoot->leftchild!=nullptr){
+                                tempRoot->leftchild->parent = successorNode;
+                            }else{
+
+                            }
+
                         }else{
                             tempRoot->parent->leftchild = successorNode;
                             successorNode->parent = tempRoot->parent;
                             successorNode->leftchild = tempRoot->leftchild;
-                            tempRoot->leftchild->parent = successorNode;
+                            if(tempRoot->leftchild!=nullptr){
+                                tempRoot->leftchild->parent = successorNode;
+                            }else{
+
+                            }
                         }
                     }
-
-
-
                 }else{
                     // 處理 case 3，要刪除的點有比較遠的successor，把successor 取代要刪除的點，successor 的父親的左兒子指向successor 的右兒子
                     // successor 的左右兒子改為指向要被刪除的點的左右兒子
@@ -187,13 +194,21 @@ bool deleteNode(TreeNode **root, int value){
                             successorNode->parent = tempRoot->parent;
                             successorNode->rightchild = tempRoot->rightchild;
                             successorNode->leftchild = tempRoot->leftchild;
+                            tempRoot->rightchild->parent = successorNode;
+                            if(tempRoot->leftchild!=nullptr){
+                                tempRoot->leftchild->parent = successorNode;
+                            }
+
                         }else{
                             tempRoot->parent->leftchild = successorNode;
                             successorNode->parent = tempRoot->parent;
                             successorNode->rightchild = tempRoot->rightchild;
                             successorNode->leftchild = tempRoot->leftchild;
                             tempRoot->rightchild->parent = successorNode;
-                            tempRoot->leftchild->parent = successorNode;
+                            if(tempRoot->leftchild!=nullptr){
+                                tempRoot->leftchild->parent = successorNode;
+                            }
+
                         }
 
                     }
@@ -250,6 +265,7 @@ int main(){
                 newNode->value = number;
 
                 insertNode(root, newNode);
+
             }
             break;
         case 2:
