@@ -52,17 +52,18 @@ private:
 };
 
 
-
+int tower_number = 3;
 int main(){
-    int n =3;
-    Tower towers1 = Tower(0);
-    Tower towers2 = Tower(1);
-    Tower towers3 = Tower(2);
+    int n = 4;
+    Tower towers[3];
+    for(int i=0;i<tower_number;i++){
+        towers[i] = Tower(i);
+    }
 
     for(int i=n-1;i>=0;i--){
-        towers1.add(i);
+        towers[0].add(i);
     }
-    towers1.moveDisks(n, towers3,towers2);
+    towers[0].moveDisks(n, towers[1],towers[2]);
     return 0;
 }
 
